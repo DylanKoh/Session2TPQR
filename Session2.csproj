@@ -73,11 +73,11 @@
     <Compile Include="Booking.cs">
       <DependentUpon>Session2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="2.1_Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="2.1_Login.Designer.cs">
+      <DependentUpon>2.1_Login.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagerMain.cs">
       <SubType>Form</SubType>
@@ -141,8 +141,8 @@
     <EmbeddedResource Include="Book.resx">
       <DependentUpon>Book.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="2.1_Login.resx">
+      <DependentUpon>2.1_Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerMain.resx">
       <DependentUpon>ManagerMain.cs</DependentUpon>
