@@ -50,323 +50,140 @@ namespace Session2
             dataGridView1.Columns[6].Name = "Banner";
             using (var context = new Session2Entities1())
             {
-                if (onlineBox.Checked)
-                {
-                    var getPackages = (from x in context.Packages
-                                       join y in context.Benefits on x.packageId equals y.packageIdFK
-                                       where y.benefitName == "Online"
-                                       where x.packageQuantity > 0
-                                       select new { x, y });
-                    if (flyersBox.Checked)
-                    {
-                        var getPackages1 = (from x in getPackages
-                                            where x.y.benefitName == "Flyer"
-                                            select x);
 
-                        if (bannerBox.Checked)
-                        {
-                            var getPackages2 = (from x in getPackages1
-                                                where x.y.benefitName == "Banner"
-                                                select x);
-                            foreach (var item in getPackages2.Select(x => x.x.packageName).Distinct())
+
+                var getPackages = (from x in context.Packages
+                                   where x.packageQuantity > 0
+                                   select new { x });
+                foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
+                {
+                    var getPackageInfo = (from x in context.Packages
+                                          where x.packageName == item
+                                          select x).First();
+                    List<string> rows = new List<string>()
                             {
-                                var getPackages3 = (from x in context.Packages
-                                                    join y in context.Benefits on x.packageId equals y.packageIdFK
-                                                    where x.packageName == item
-                                                    select x).FirstOrDefault();
-                                List<string> rows = new List<string>()
-                                {
-                                    getPackages3.packageTier, getPackages3.packageName, getPackages3.packageValue.ToString(),
-                                    getPackages3.packageQuantity.ToString()
-                                };
-                                List<string> vs = new List<string>();
-                                foreach (var item1 in getPackages3.Benefits.Where(x => x.packageIdFK == getPackages3.packageId).Select(x => x.benefitName))
-                                {
-                                    vs.Add(item1);
-                                }
-                                if (vs[0] == "Online") rows.Add("Yes");
-                                else rows.Add("");
-                                if (vs.Contains("Flyer")) rows.Add("Yes");
-                                else rows.Add("");
-                                if (vs.Contains("Banner")) rows.Add("Yes");
-                                else rows.Add("");
-                                dataGridView1.Rows.Add(rows.ToArray());
-                            }
-                        }
-                        foreach (var item in getPackages1.Select(x => x.x.packageName).Distinct())
-                        {
-                            var getPackages2 = (from x in context.Packages
-                                                join y in context.Benefits on x.packageId equals y.packageIdFK
-                                                where x.packageName == item
-                                                select x).FirstOrDefault();
-                            List<string> rows = new List<string>()
-                            {
-                                getPackages2.packageTier, getPackages2.packageName, getPackages2.packageValue.ToString(),
-                                getPackages2.packageQuantity.ToString()
+                                getPackageInfo.packageTier, getPackageInfo.packageName, getPackageInfo.packageValue.ToString(),
+                                getPackageInfo.packageQuantity.ToString()
                             };
-                            List<string> vs = new List<string>();
-                            foreach (var item1 in getPackages2.Benefits.Where(x => x.packageIdFK == getPackages2.packageId).Select(x => x.benefitName))
-                            {
-                                vs.Add(item1);
-                            }
-                            if (vs[0] == "Online") rows.Add("Yes");
-                            else rows.Add("");
-                            if (vs.Contains("Flyer")) rows.Add("Yes");
-                            else rows.Add("");
-                            if (vs.Contains("Banner")) rows.Add("Yes");
-                            else rows.Add("");
-                            dataGridView1.Rows.Add(rows.ToArray());
 
-                        }
-                    }
-                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
-                    {
-                        var getPackages1 = (from x in context.Packages
-                                            join y in context.Benefits on x.packageId equals y.packageIdFK
-                                            where x.packageName == item
-                                            select x).FirstOrDefault();
-                        List<string> rows = new List<string>()
-                        {
-                            getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
-                            getPackages1.packageQuantity.ToString()
-                        };
-                        List<string> vs = new List<string>();
-                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                        {
-                            vs.Add(item1);
-                        }
-                        if (vs[0] == "Online") rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Flyer")) rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Banner")) rows.Add("Yes");
-                        else rows.Add("");
+                    var getBenefits = (from x in context.Benefits
+                                       where x.packageIdFK == getPackageInfo.packageId
+                                       select x.benefitName).ToList();
 
-                        dataGridView1.Rows.Add(rows.ToArray());
-                    }
+                    if (getBenefits.First() == "Online") rows.Add("Yes");
+                    else rows.Add("");
+                    if (getBenefits.Contains("Flyer")) rows.Add("Yes");
+                    else rows.Add("");
+                    if (getBenefits.Contains("Banner")) rows.Add("Yes");
+                    else rows.Add("");
+                    dataGridView1.Rows.Add(rows.ToArray());
+
                 }
 
-                else if (flyersBox.Checked)
-                {
-                    var getPackages = (from x in context.Packages
-                                       join y in context.Benefits on x.packageId equals y.packageIdFK
-                                       where y.benefitName == "Flyer"
-                                       where x.packageQuantity > 0
-                                       select new { x, y });
-                    if (onlineBox.Checked)
-                    {
-                        var getPackages1 = (from x in getPackages
-                                            where x.y.benefitName == "Online"
-                                            select x);
 
-                        if (bannerBox.Checked)
-                        {
-                            var getPackages2 = (from x in getPackages1
-                                                where x.y.benefitName == "Banner"
-                                                select x);
-                            foreach (var item in getPackages2.Select(x => x.x.packageName).Distinct())
-                            {
-                                var getPackages3 = (from x in context.Packages
-                                                    join y in context.Benefits on x.packageId equals y.packageIdFK
-                                                    where x.packageName == item
-                                                    select x).FirstOrDefault();
-                                List<string> rows = new List<string>()
-                                {
-                                    getPackages3.packageTier, getPackages3.packageName, getPackages3.packageValue.ToString(),
-                                    getPackages3.packageQuantity.ToString()
-                                };
-                                List<string> vs = new List<string>();
-                                foreach (var item1 in getPackages3.Benefits.Where(x => x.packageIdFK == getPackages3.packageId).Select(x => x.benefitName))
-                                {
-                                    vs.Add(item1);
-                                }
-                                if (vs[0] == "Online") rows.Add("Yes");
-                                else rows.Add("");
-                                if (vs.Contains("Flyer")) rows.Add("Yes");
-                                else rows.Add("");
-                                if (vs.Contains("Banner")) rows.Add("Yes");
-                                else rows.Add("");
-                                dataGridView1.Rows.Add(rows.ToArray());
-                            }
-                        }
-                        foreach (var item in getPackages1.Select(x => x.x.packageName).Distinct())
-                        {
-                            var getPackages2 = (from x in context.Packages
-                                                join y in context.Benefits on x.packageId equals y.packageIdFK
-                                                where x.packageName == item
-                                                select x).FirstOrDefault();
-                            List<string> rows = new List<string>()
-                            {
-                                getPackages2.packageTier, getPackages2.packageName, getPackages2.packageValue.ToString(),
-                                getPackages2.packageQuantity.ToString()
-                            };
-                            List<string> vs = new List<string>();
-                            foreach (var item1 in getPackages2.Benefits.Where(x => x.packageIdFK == getPackages2.packageId).Select(x => x.benefitName))
-                            {
-                                vs.Add(item1);
-                            }
-                            if (vs[0] == "Online") rows.Add("Yes");
-                            else rows.Add("");
-                            if (vs.Contains("Flyer")) rows.Add("Yes");
-                            else rows.Add("");
-                            if (vs.Contains("Banner")) rows.Add("Yes");
-                            else rows.Add("");
-                            dataGridView1.Rows.Add(rows.ToArray());
-                        }
-                    }
-                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
-                    {
-                        var getPackages1 = (from x in context.Packages
-                                            join y in context.Benefits on x.packageId equals y.packageIdFK
-                                            where x.packageName == item
-                                            select x).FirstOrDefault();
-                        List<string> rows = new List<string>()
-                        {
-                            getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
-                            getPackages1.packageQuantity.ToString()
-                        };
-                        List<string> vs = new List<string>();
-                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                        {
-                            vs.Add(item1);
-                        }
-                        if (vs[0] == "Online") rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Flyer")) rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Banner")) rows.Add("Yes");
-                        else rows.Add("");
-
-                        dataGridView1.Rows.Add(rows.ToArray());
-                    }
-                }
-                else if (bannerBox.Checked)
-                {
-                    var getPackages = (from x in context.Packages
-                                       join y in context.Benefits on x.packageId equals y.packageIdFK
-                                       where y.benefitName == "Banner"
-                                       where x.packageQuantity > 0
-                                       select new { x, y });
-                    if (flyersBox.Checked)
-                    {
-                        var getPackages1 = (from x in getPackages
-                                            where x.y.benefitName == "Flyer"
-                                            select x);
-
-                        if (onlineBox.Checked)
-                        {
-                            var getPackages2 = (from x in getPackages1
-                                                where x.y.benefitName == "Online"
-                                                select x);
-                            foreach (var item in getPackages2)
-                            {
-                                List<string> rows = new List<string>()
-                                {
-                                    item.x.packageTier, item.x.packageName, item.x.packageValue.ToString(),
-                                    item.x.packageQuantity.ToString()
-                                };
-                                if (item.y.benefitName == "Online") rows.Add("Yes");
-                                else rows.Add("");
-                                if (item.y.benefitName == "Flyer") rows.Add("Yes");
-                                else rows.Add("");
-                                if (item.y.benefitName == "Banner") rows.Add("Yes");
-                                else rows.Add("");
-                                dataGridView1.Rows.Add(rows.ToArray());
-                            }
-                        }
-                        foreach (var item in getPackages1)
-                        {
-                            List<string> rows = new List<string>()
-                            {
-                                item.x.packageTier, item.x.packageName, item.x.packageValue.ToString(),
-                                item.x.packageQuantity.ToString()
-                            };
-                            if (item.y.benefitName == "Online") rows.Add("Yes");
-                            else rows.Add("");
-                            if (item.y.benefitName == "Flyer") rows.Add("Yes");
-                            else rows.Add("");
-                            if (item.y.benefitName == "Banner") rows.Add("Yes");
-                            else rows.Add("");
-                            dataGridView1.Rows.Add(rows.ToArray());
-                        }
-                    }
-                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
-                    {
-                        var getPackages1 = (from x in context.Packages
-                                            join y in context.Benefits on x.packageId equals y.packageIdFK
-                                            where x.packageName == item
-                                            select x).FirstOrDefault();
-                        List<string> rows = new List<string>()
-                        {
-                            getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
-                            getPackages1.packageQuantity.ToString()
-                        };
-                        List<string> vs = new List<string>();
-                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                        {
-                            vs.Add(item1);
-                        }
-                        if (vs[0] == "Online") rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Flyer")) rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Banner")) rows.Add("Yes");
-                        else rows.Add("");
-                        dataGridView1.Rows.Add(rows.ToArray());
-                    }
-                }
-                else
-                {
-                    var getPackages = (from x in context.Packages
-                                       join y in context.Benefits on x.packageId equals y.packageIdFK
-                                       where x.packageQuantity > 0
-                                       select new { x, y });
-                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
-                    {
-                        var getPackages1 = (from x in context.Packages
-                                            join y in context.Benefits on x.packageId equals y.packageIdFK
-                                            where x.packageName == item
-                                            select x).FirstOrDefault();
-                        List<string> rows = new List<string>()
-                        {
-                            getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
-                            getPackages1.packageQuantity.ToString()
-                        };
-                        List<string> vs = new List<string>();
-                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                        {
-                            vs.Add(item1);
-                        }
-                        if (vs[0] == "Online") rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Flyer")) rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Banner")) rows.Add("Yes");
-                        else rows.Add("");
-
-                        dataGridView1.Rows.Add(rows.ToArray());
-                    }
-                }
 
             }
         }
 
         private void onlineBox_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            GridRefresh();
+            if (onlineBox.Checked)
+            {
+                var index = new List<DataGridViewRow>();
+                foreach (DataGridViewRow item in dataGridView1.Rows)
+                {
+                    using (var context = new Session2Entities1())
+                    {
+                        var packageName = item.Cells[1].Value.ToString();
+                        var checkBenefits = (from x in context.Packages
+                                             where x.packageName == packageName
+                                             select x.packageId).First();
+                        var getBenefits = (from x in context.Benefits
+                                           where x.packageIdFK == checkBenefits
+                                           select x.benefitName).ToList();
+                        if (getBenefits.Contains("Online")) continue;
+                        else index.Add(item);
+                    }
+
+                }
+                foreach (var item in index)
+                {
+                    dataGridView1.Rows.Remove(item);
+                }
+            }
+            else if (!flyersBox.Checked && !bannerBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+            }
+
         }
 
         private void flyersBox_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            GridRefresh();
+            if (flyersBox.Checked)
+            {
+                var index = new List<DataGridViewRow>();
+                foreach (DataGridViewRow item in dataGridView1.Rows)
+                {
+                    using (var context = new Session2Entities1())
+                    {
+                        var packageName = item.Cells[1].Value.ToString();
+                        var checkBenefits = (from x in context.Packages
+                                             where x.packageName == packageName
+                                             select x.packageId).First();
+                        var getBenefits = (from x in context.Benefits
+                                           where x.packageIdFK == checkBenefits
+                                           select x.benefitName).ToList();
+                        if (getBenefits.Contains("Flyer")) continue;
+                        else index.Add(item);
+                    }
+                    
+                }
+                foreach (var item in index)
+                {
+                    dataGridView1.Rows.Remove(item);
+                }
+            }
+            else if (!onlineBox.Checked && !bannerBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+            }
         }
 
         private void bannerBox_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            GridRefresh();
+            if (bannerBox.Checked)
+            {
+                var index = new List<DataGridViewRow>();
+                foreach (DataGridViewRow item in dataGridView1.Rows)
+                {
+                    using (var context = new Session2Entities1())
+                    {
+                        var packageName = item.Cells[1].Value.ToString();
+                        var checkBenefits = (from x in context.Packages
+                                             where x.packageName == packageName
+                                             select x.packageId).First();
+                        var getBenefits = (from x in context.Benefits
+                                           where x.packageIdFK == checkBenefits
+                                           select x.benefitName).ToList();
+                        if (getBenefits.Contains("Banner")) continue;
+                        else index.Add(item);
+                    }
+
+                }
+                foreach (var item in index)
+                {
+                    dataGridView1.Rows.Remove(item);
+                }
+
+            }
+            else if (!flyersBox.Checked && !onlineBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+            }
         }
 
         private void bookBtn_Click(object sender, EventArgs e)
@@ -433,8 +250,8 @@ namespace Session2
                     var getValue = Int32.Parse(budgetBox.Text);
                     var getRelevent = (from x in context.Packages
                                        where x.packageValue <= getValue
-                                       join y in context.Benefits on x.packageId equals y.packageIdFK
-                                       select new { x, y });
+                                       where x.packageQuantity >= 0
+                                       select new { x });
                     dataGridView1.Rows.Clear();
                     foreach (var item in getRelevent.Select(x => x.x.packageName).Distinct())
                     {
@@ -460,6 +277,7 @@ namespace Session2
                         else rows.Add("");
 
                         dataGridView1.Rows.Add(rows.ToArray());
+
                     }
                 }
             }
@@ -469,8 +287,8 @@ namespace Session2
                 MessageBox.Show("Please input a valid integer!", "Invalid Input",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
-            
+
+
         }
     }
 }
