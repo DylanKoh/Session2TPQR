@@ -55,6 +55,7 @@ namespace Session2
                     var getPackages = (from x in context.Packages
                                        join y in context.Benefits on x.packageId equals y.packageIdFK
                                        where y.benefitName == "Online"
+                                       where x.packageQuantity > 0
                                        select new { x, y });
                     if (flyersBox.Checked)
                     {
@@ -150,6 +151,7 @@ namespace Session2
                     var getPackages = (from x in context.Packages
                                        join y in context.Benefits on x.packageId equals y.packageIdFK
                                        where y.benefitName == "Flyer"
+                                       where x.packageQuantity > 0
                                        select new { x, y });
                     if (onlineBox.Checked)
                     {
@@ -243,6 +245,7 @@ namespace Session2
                     var getPackages = (from x in context.Packages
                                        join y in context.Benefits on x.packageId equals y.packageIdFK
                                        where y.benefitName == "Banner"
+                                       where x.packageQuantity > 0
                                        select new { x, y });
                     if (flyersBox.Checked)
                     {
@@ -316,6 +319,7 @@ namespace Session2
                 {
                     var getPackages = (from x in context.Packages
                                        join y in context.Benefits on x.packageId equals y.packageIdFK
+                                       where x.packageQuantity > 0
                                        select new { x, y });
                     foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
                     {
@@ -422,40 +426,50 @@ namespace Session2
 
         private void budgetBox_TextChanged(object sender, EventArgs e)
         {
-            using (var context = new Session2Entities1())
+            try
             {
-                var getValue = Int32.Parse(budgetBox.Text);
-                var getRelevent = (from x in context.Packages
-                                   where x.packageValue <= getValue
-                                   join y in context.Benefits on x.packageId equals y.packageIdFK
-                                   select new { x, y });
-                dataGridView1.Rows.Clear();
-                foreach (var item in getRelevent.Select(x => x.x.packageName).Distinct())
+                using (var context = new Session2Entities1())
                 {
-                    var getPackages1 = (from x in context.Packages
-                                        join y in context.Benefits on x.packageId equals y.packageIdFK
-                                        where x.packageName == item
-                                        select x).FirstOrDefault();
-                    List<string> rows = new List<string>()
+                    var getValue = Int32.Parse(budgetBox.Text);
+                    var getRelevent = (from x in context.Packages
+                                       where x.packageValue <= getValue
+                                       join y in context.Benefits on x.packageId equals y.packageIdFK
+                                       select new { x, y });
+                    dataGridView1.Rows.Clear();
+                    foreach (var item in getRelevent.Select(x => x.x.packageName).Distinct())
+                    {
+                        var getPackages1 = (from x in context.Packages
+                                            join y in context.Benefits on x.packageId equals y.packageIdFK
+                                            where x.packageName == item
+                                            select x).FirstOrDefault();
+                        List<string> rows = new List<string>()
                         {
                             getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
                             getPackages1.packageQuantity.ToString()
                         };
-                    List<string> vs = new List<string>();
-                    foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                    {
-                        vs.Add(item1);
-                    }
-                    if (vs[0] == "Online") rows.Add("Yes");
-                    else rows.Add("");
-                    if (vs.Contains("Flyer")) rows.Add("Yes");
-                    else rows.Add("");
-                    if (vs.Contains("Banner")) rows.Add("Yes");
-                    else rows.Add("");
+                        List<string> vs = new List<string>();
+                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
+                        {
+                            vs.Add(item1);
+                        }
+                        if (vs[0] == "Online") rows.Add("Yes");
+                        else rows.Add("");
+                        if (vs.Contains("Flyer")) rows.Add("Yes");
+                        else rows.Add("");
+                        if (vs.Contains("Banner")) rows.Add("Yes");
+                        else rows.Add("");
 
-                    dataGridView1.Rows.Add(rows.ToArray());
+                        dataGridView1.Rows.Add(rows.ToArray());
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Please input a valid integer!", "Invalid Input",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
             
         }
     }

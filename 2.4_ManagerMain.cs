@@ -19,7 +19,9 @@ namespace Session2
 
         private void addPackageBtn_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            (new AddPackage()).ShowDialog();
+            this.Close();
         }
 
         private void viewPackageBtn_Click(object sender, EventArgs e)
@@ -34,6 +36,16 @@ namespace Session2
             this.Hide();
             (new Login()).ShowDialog();
             this.Close();
+        }
+
+        private void approveBookingsBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

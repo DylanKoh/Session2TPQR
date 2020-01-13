@@ -64,11 +64,11 @@
     <Compile Include="Benefit.cs">
       <DependentUpon>Session2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Book.cs">
+    <Compile Include="2.5_Book.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Book.Designer.cs">
-      <DependentUpon>Book.cs</DependentUpon>
+    <Compile Include="2.5_Book.Designer.cs">
+      <DependentUpon>2.5_Book.cs</DependentUpon>
     </Compile>
     <Compile Include="Booking.cs">
       <DependentUpon>Session2Model.tt</DependentUpon>
@@ -79,17 +79,17 @@
     <Compile Include="2.1_Login.Designer.cs">
       <DependentUpon>2.1_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManagerMain.cs">
+    <Compile Include="2.4_ManagerMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManagerMain.Designer.cs">
-      <DependentUpon>ManagerMain.cs</DependentUpon>
+    <Compile Include="2.4_ManagerMain.Designer.cs">
+      <DependentUpon>2.4_ManagerMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewAccount.cs">
+    <Compile Include="2.2_NewAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewAccount.Designer.cs">
-      <DependentUpon>NewAccount.cs</DependentUpon>
+    <Compile Include="2.2_NewAccount.Designer.cs">
+      <DependentUpon>2.2_NewAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="Package.cs">
       <DependentUpon>Session2Model.tt</DependentUpon>
@@ -111,11 +111,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Session2Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SponsorMain.cs">
+    <Compile Include="2.3_SponsorMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SponsorMain.Designer.cs">
-      <DependentUpon>SponsorMain.cs</DependentUpon>
+    <Compile Include="2.3_SponsorMain.Designer.cs">
+      <DependentUpon>2.3_SponsorMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Update.cs">
       <SubType>Form</SubType>
@@ -138,17 +138,17 @@
     <EmbeddedResource Include="AddPackage.resx">
       <DependentUpon>AddPackage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Book.resx">
-      <DependentUpon>Book.cs</DependentUpon>
+    <EmbeddedResource Include="2.5_Book.resx">
+      <DependentUpon>2.5_Book.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="2.1_Login.resx">
       <DependentUpon>2.1_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManagerMain.resx">
-      <DependentUpon>ManagerMain.cs</DependentUpon>
+    <EmbeddedResource Include="2.4_ManagerMain.resx">
+      <DependentUpon>2.4_ManagerMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewAccount.resx">
-      <DependentUpon>NewAccount.cs</DependentUpon>
+    <EmbeddedResource Include="2.2_NewAccount.resx">
+      <DependentUpon>2.2_NewAccount.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,8 +159,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SponsorMain.resx">
-      <DependentUpon>SponsorMain.cs</DependentUpon>
+    <EmbeddedResource Include="2.3_SponsorMain.resx">
+      <DependentUpon>2.3_SponsorMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Update.resx">
       <DependentUpon>Update.cs</DependentUpon>

@@ -53,9 +53,17 @@ namespace Session2
                     var checkForPossibleAccount = (from x in context.Users
                                                    where x.name == companyNameBox.Text.Trim()
                                                    select x).FirstOrDefault();
+                    var checkUserID = (from x in context.Users
+                                       where x.userId == userIDBox.Text
+                                       select x).FirstOrDefault();
                     if (checkForPossibleAccount != null)
                     {
                         MessageBox.Show("Your current company already has a sponsor account!", "Unable to create an account",
+                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (checkUserID != null)
+                    {
+                        MessageBox.Show("User ID has been used!", "Unable to create an account",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else

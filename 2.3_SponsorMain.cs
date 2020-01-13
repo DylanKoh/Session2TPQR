@@ -32,5 +32,12 @@ namespace Session2
             (new Update(_userID)).ShowDialog();
             this.Close();
         }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            (new Login()).ShowDialog();
+            this.Close();
+        }
     }
 }
