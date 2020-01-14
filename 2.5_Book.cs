@@ -113,7 +113,7 @@ namespace Session2
 
                     }
                 }
-                
+
 
 
 
@@ -173,7 +173,7 @@ namespace Session2
                         if (getBenefits.Contains("Flyer")) continue;
                         else index.Add(item);
                     }
-                    
+
                 }
                 foreach (var item in index)
                 {
@@ -278,58 +278,128 @@ namespace Session2
 
         private void budgetBox_TextChanged(object sender, EventArgs e)
         {
-            try
+            if (budgetBox.Text.Trim() != "")
             {
+                dataGridView1.Rows.Clear();
                 using (var context = new Session2Entities1())
                 {
                     var getValue = Int32.Parse(budgetBox.Text);
                     var getRelevent = (from x in context.Packages
                                        where x.packageValue <= getValue
                                        where x.packageQuantity >= 0
-                                       select new { x });
-                    dataGridView1.Rows.Clear();
-                    foreach (var item in getRelevent.Select(x => x.x.packageName).Distinct())
+                                       select x.packageName).Distinct();
+                    foreach (var item in getRelevent)
                     {
-                        var getPackages1 = (from x in context.Packages
-                                            join y in context.Benefits on x.packageId equals y.packageIdFK
-                                            where x.packageName == item
-                                            select x).FirstOrDefault();
-                        List<string> rows = new List<string>()
+                        var checkBenefits = (from x in context.Benefits
+                                             where x.Package.packageName == item
+                                             select x).FirstOrDefault();
+                        if (checkBenefits != null)
+                        {
+                            var getPackages1 = (from x in context.Packages
+                                                join y in context.Benefits on x.packageId equals y.packageIdFK
+                                                where x.packageName == item
+                                                select x).FirstOrDefault();
+                            List<string> rows = new List<string>()
                         {
                             getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
                             getPackages1.packageQuantity.ToString()
                         };
-                        List<string> vs = new List<string>();
-                        foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
-                        {
-                            vs.Add(item1);
-                        }
-                        if (vs[0] == "Online") rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Flyer")) rows.Add("Yes");
-                        else rows.Add("");
-                        if (vs.Contains("Banner")) rows.Add("Yes");
-                        else rows.Add("");
+                            List<string> vs = new List<string>();
+                            foreach (var item1 in getPackages1.Benefits.Where(x => x.packageIdFK == getPackages1.packageId).Select(x => x.benefitName))
+                            {
+                                vs.Add(item1);
+                            }
+                            if (vs[0] == "Online") rows.Add("Yes");
+                            else rows.Add("");
+                            if (vs.Contains("Flyer")) rows.Add("Yes");
+                            else rows.Add("");
+                            if (vs.Contains("Banner")) rows.Add("Yes");
+                            else rows.Add("");
 
-                        dataGridView1.Rows.Add(rows.ToArray());
+                            dataGridView1.Rows.Add(rows.ToArray());
+                            if (onlineBox.Checked)
+                            {
+                                onlineBox_CheckedChanged(null, null);
+                            }
+                            else if (flyersBox.Checked)
+                            {
+                                flyersBox_CheckedChanged(null, null);
+                            }
+                            else if (bannerBox.Checked)
+                            {
+                                bannerBox_CheckedChanged(null, null);
+                            }
+                        }
+                        else
+                        {
+                            var getPackages1 = (from x in context.Packages
+                                                where x.packageName == item
+                                                select x).FirstOrDefault();
+                            List<string> rows = new List<string>()
+                        {
+                            getPackages1.packageTier, getPackages1.packageName, getPackages1.packageValue.ToString(),
+                            getPackages1.packageQuantity.ToString()
+                        };
+
+                            rows.Add("");
+                            rows.Add("");
+                            rows.Add("");
+
+                            dataGridView1.Rows.Add(rows.ToArray());
+                            if (onlineBox.Checked)
+                            {
+                                onlineBox_CheckedChanged(null, null);
+                            }
+                            else if (flyersBox.Checked)
+                            {
+                                flyersBox_CheckedChanged(null, null);
+                            }
+                            else if (bannerBox.Checked)
+                            {
+                                bannerBox_CheckedChanged(null, null);
+                            }
+                        }
 
                     }
                 }
-            }
-            catch (Exception)
-            {
 
-                MessageBox.Show("Please input a valid integer!", "Invalid Input",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            else
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+            }
+
 
 
         }
 
         private void tierBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            GridRefresh();
+            if (onlineBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+                onlineBox_CheckedChanged(null, null);
+            }
+            else if (flyersBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+                flyersBox_CheckedChanged(null, null);
+            }
+            else if (bannerBox.Checked)
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+                bannerBox_CheckedChanged(null, null);
+            }
+            else
+            {
+                dataGridView1.Rows.Clear();
+                GridRefresh();
+            }
+
         }
     }
 }
