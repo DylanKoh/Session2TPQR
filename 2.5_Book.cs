@@ -40,6 +40,7 @@ namespace Session2
         }
         private void GridRefresh()
         {
+            dataGridView1.ReadOnly = true;
             dataGridView1.ColumnCount = 7;
             dataGridView1.Columns[0].Name = "Tier";
             dataGridView1.Columns[1].Name = "Name";
@@ -257,11 +258,6 @@ namespace Session2
                             quantityBooked = Int32.Parse(quantityBox.Text),
                             status = "Pending"
                         });
-                        var updateQuantity = (from x in context.Packages
-                                              where x.packageId == getPackageID
-                                              select x).FirstOrDefault();
-
-                        updateQuantity.packageQuantity -= Int32.Parse(quantityBox.Text);
                         context.SaveChanges();
                         dataGridView1.Rows.Clear();
                         GridRefresh();

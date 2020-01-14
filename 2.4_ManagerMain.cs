@@ -40,7 +40,9 @@ namespace Session2
 
         private void approveBookingsBtn_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            (new ApproveBooking()).ShowDialog();
+            this.Close();
         }
 
         private void viewBtn_Click(object sender, EventArgs e)

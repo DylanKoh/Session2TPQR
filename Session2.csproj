@@ -61,6 +61,12 @@
     <Compile Include="2.8_AddPackage.Designer.cs">
       <DependentUpon>2.8_AddPackage.cs</DependentUpon>
     </Compile>
+    <Compile Include="2.9_ApproveBooking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="2.9_ApproveBooking.Designer.cs">
+      <DependentUpon>2.9_ApproveBooking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Benefit.cs">
       <DependentUpon>Session2Model.tt</DependentUpon>
     </Compile>
@@ -149,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="2.2_NewAccount.resx">
       <DependentUpon>2.2_NewAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="2.9_ApproveBooking.resx">
+      <DependentUpon>2.9_ApproveBooking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

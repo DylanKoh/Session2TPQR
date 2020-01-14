@@ -126,8 +126,6 @@ namespace Session2
                                             join y in context.Packages on x.packageIdFK equals y.packageId
                                             select y.packageQuantity).First();
 
-                        var quantity = Convert.ToInt32(item.Cells[3].Value);
-                        checkPackage += quantity;
                         if ((checkPackage - Int32.Parse(quantityBox.Text)) < 0)
                         {
                             MessageBox.Show("Cannot update quantity as Package quantity will hit negative!",
@@ -139,6 +137,7 @@ namespace Session2
                                                  where x.bookingId == getBookingId
                                                  select x).First();
                             UpdateBooking.quantityBooked = Int32.Parse(quantityBox.Text);
+                            UpdateBooking.status = "Pending";
                             context.SaveChanges();
                         }
                         dataGridView1.Rows.Clear();
