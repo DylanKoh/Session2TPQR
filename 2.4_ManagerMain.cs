@@ -47,7 +47,9 @@ namespace Session2
 
         private void viewBtn_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            (new ViewSummary()).ShowDialog();
+            this.Close();
         }
     }
 }
