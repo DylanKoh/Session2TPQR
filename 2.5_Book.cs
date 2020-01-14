@@ -50,35 +50,70 @@ namespace Session2
             dataGridView1.Columns[6].Name = "Banner";
             using (var context = new Session2Entities1())
             {
-
-
-                var getPackages = (from x in context.Packages
-                                   where x.packageQuantity > 0
-                                   select new { x });
-                foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
+                if (tierBox.SelectedItem != null && tierBox.SelectedItem.ToString() != "No Sorting")
                 {
-                    var getPackageInfo = (from x in context.Packages
-                                          where x.packageName == item
-                                          select x).First();
-                    List<string> rows = new List<string>()
+                    var getSelectedTier = tierBox.SelectedItem.ToString();
+                    var getPackages = (from x in context.Packages
+                                       where x.packageQuantity > 0
+                                       where x.packageTier == getSelectedTier
+                                       select new { x });
+                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
+                    {
+                        var getPackageInfo = (from x in context.Packages
+                                              where x.packageName == item
+                                              select x).First();
+                        List<string> rows = new List<string>()
                             {
                                 getPackageInfo.packageTier, getPackageInfo.packageName, getPackageInfo.packageValue.ToString(),
                                 getPackageInfo.packageQuantity.ToString()
                             };
 
-                    var getBenefits = (from x in context.Benefits
-                                       where x.packageIdFK == getPackageInfo.packageId
-                                       select x.benefitName).ToList();
+                        var getBenefits = (from x in context.Benefits
+                                           where x.packageIdFK == getPackageInfo.packageId
+                                           select x.benefitName).ToList();
 
-                    if (getBenefits.First() == "Online") rows.Add("Yes");
-                    else rows.Add("");
-                    if (getBenefits.Contains("Flyer")) rows.Add("Yes");
-                    else rows.Add("");
-                    if (getBenefits.Contains("Banner")) rows.Add("Yes");
-                    else rows.Add("");
-                    dataGridView1.Rows.Add(rows.ToArray());
+                        if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
+                        else rows.Add("");
+                        if (getBenefits.Contains("Flyer")) rows.Add("Yes");
+                        else rows.Add("");
+                        if (getBenefits.Contains("Banner")) rows.Add("Yes");
+                        else rows.Add("");
+                        dataGridView1.Rows.Add(rows.ToArray());
 
+                    }
                 }
+
+                else
+                {
+                    var getPackages = (from x in context.Packages
+                                       where x.packageQuantity > 0
+                                       select new { x });
+                    foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
+                    {
+                        var getPackageInfo = (from x in context.Packages
+                                              where x.packageName == item
+                                              select x).First();
+                        List<string> rows = new List<string>()
+                            {
+                                getPackageInfo.packageTier, getPackageInfo.packageName, getPackageInfo.packageValue.ToString(),
+                                getPackageInfo.packageQuantity.ToString()
+                            };
+
+                        var getBenefits = (from x in context.Benefits
+                                           where x.packageIdFK == getPackageInfo.packageId
+                                           select x.benefitName).ToList();
+
+                        if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
+                        else rows.Add("");
+                        if (getBenefits.Contains("Flyer")) rows.Add("Yes");
+                        else rows.Add("");
+                        if (getBenefits.Contains("Banner")) rows.Add("Yes");
+                        else rows.Add("");
+                        dataGridView1.Rows.Add(rows.ToArray());
+
+                    }
+                }
+                
 
 
 
@@ -204,7 +239,7 @@ namespace Session2
 
                 if (getValueAfterBooking - Int32.Parse(quantityBox.Text) < 0)
                 {
-                    MessageBox.Show("unable to book more than current quantity!", "Invalid amount", MessageBoxButtons.OK,
+                    MessageBox.Show("Unable to book more than current available quantity!", "Invalid amount", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
                 else
@@ -289,6 +324,12 @@ namespace Session2
             }
 
 
+        }
+
+        private void tierBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            GridRefresh();
         }
     }
 }

@@ -55,13 +55,13 @@
             this.label1.Font = new System.Drawing.Font("Verdana", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(306, 94);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(332, 26);
+            this.label1.Size = new System.Drawing.Size(408, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Sponsor Manager Main Menu";
             // 
             // viewPackageBtn
             // 
-            this.viewPackageBtn.Location = new System.Drawing.Point(225, 123);
+            this.viewPackageBtn.Location = new System.Drawing.Point(236, 144);
             this.viewPackageBtn.Name = "viewPackageBtn";
             this.viewPackageBtn.Size = new System.Drawing.Size(225, 92);
             this.viewPackageBtn.TabIndex = 2;
@@ -71,7 +71,7 @@
             // 
             // addPackageBtn
             // 
-            this.addPackageBtn.Location = new System.Drawing.Point(490, 123);
+            this.addPackageBtn.Location = new System.Drawing.Point(501, 144);
             this.addPackageBtn.Name = "addPackageBtn";
             this.addPackageBtn.Size = new System.Drawing.Size(225, 92);
             this.addPackageBtn.TabIndex = 3;
@@ -81,7 +81,7 @@
             // 
             // approveBookingsBtn
             // 
-            this.approveBookingsBtn.Location = new System.Drawing.Point(225, 251);
+            this.approveBookingsBtn.Location = new System.Drawing.Point(236, 272);
             this.approveBookingsBtn.Name = "approveBookingsBtn";
             this.approveBookingsBtn.Size = new System.Drawing.Size(225, 92);
             this.approveBookingsBtn.TabIndex = 4;
@@ -91,7 +91,7 @@
             // 
             // viewBtn
             // 
-            this.viewBtn.Location = new System.Drawing.Point(490, 251);
+            this.viewBtn.Location = new System.Drawing.Point(501, 272);
             this.viewBtn.Name = "viewBtn";
             this.viewBtn.Size = new System.Drawing.Size(225, 92);
             this.viewBtn.TabIndex = 5;
@@ -117,13 +117,13 @@
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label6.Location = new System.Drawing.Point(751, 32);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(216, 26);
+            this.label6.Size = new System.Drawing.Size(263, 32);
             this.label6.TabIndex = 1;
             this.label6.Text = "ASEAN Skills 2020";
             // 
             // ManagerMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 537);
             this.Controls.Add(this.panel1);

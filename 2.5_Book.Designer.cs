@@ -64,7 +64,7 @@
             this.label1.Font = new System.Drawing.Font("Verdana", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(290, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 26);
+            this.label1.Size = new System.Drawing.Size(391, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Book Sponsorship Packages";
             // 
@@ -73,7 +73,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(70, 119);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 18);
+            this.label2.Size = new System.Drawing.Size(160, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Filter By Tier: ";
             // 
@@ -82,7 +82,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(38, 158);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 18);
+            this.label3.Size = new System.Drawing.Size(192, 25);
             this.label3.TabIndex = 3;
             this.label3.Text = "Filter By Budget: ";
             // 
@@ -91,7 +91,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(37, 200);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(154, 18);
+            this.label4.Size = new System.Drawing.Size(193, 25);
             this.label4.TabIndex = 4;
             this.label4.Text = "Filter By Benefit: ";
             // 
@@ -101,14 +101,15 @@
             this.tierBox.FormattingEnabled = true;
             this.tierBox.Location = new System.Drawing.Point(236, 116);
             this.tierBox.Name = "tierBox";
-            this.tierBox.Size = new System.Drawing.Size(205, 26);
+            this.tierBox.Size = new System.Drawing.Size(205, 33);
             this.tierBox.TabIndex = 5;
+            this.tierBox.SelectedIndexChanged += new System.EventHandler(this.tierBox_SelectedIndexChanged);
             // 
             // budgetBox
             // 
             this.budgetBox.Location = new System.Drawing.Point(236, 155);
             this.budgetBox.Name = "budgetBox";
-            this.budgetBox.Size = new System.Drawing.Size(205, 27);
+            this.budgetBox.Size = new System.Drawing.Size(205, 32);
             this.budgetBox.TabIndex = 6;
             this.budgetBox.TextChanged += new System.EventHandler(this.budgetBox_TextChanged);
             // 
@@ -117,7 +118,7 @@
             this.onlineBox.AutoSize = true;
             this.onlineBox.Location = new System.Drawing.Point(236, 199);
             this.onlineBox.Name = "onlineBox";
-            this.onlineBox.Size = new System.Drawing.Size(80, 22);
+            this.onlineBox.Size = new System.Drawing.Size(100, 29);
             this.onlineBox.TabIndex = 7;
             this.onlineBox.Text = "Online";
             this.onlineBox.UseVisualStyleBackColor = true;
@@ -128,7 +129,7 @@
             this.flyersBox.AutoSize = true;
             this.flyersBox.Location = new System.Drawing.Point(342, 199);
             this.flyersBox.Name = "flyersBox";
-            this.flyersBox.Size = new System.Drawing.Size(75, 22);
+            this.flyersBox.Size = new System.Drawing.Size(95, 29);
             this.flyersBox.TabIndex = 8;
             this.flyersBox.Text = "Flyers";
             this.flyersBox.UseVisualStyleBackColor = true;
@@ -139,7 +140,7 @@
             this.bannerBox.AutoSize = true;
             this.bannerBox.Location = new System.Drawing.Point(443, 199);
             this.bannerBox.Name = "bannerBox";
-            this.bannerBox.Size = new System.Drawing.Size(84, 22);
+            this.bannerBox.Size = new System.Drawing.Size(107, 29);
             this.bannerBox.TabIndex = 9;
             this.bannerBox.Text = "Banner";
             this.bannerBox.UseVisualStyleBackColor = true;
@@ -161,7 +162,7 @@
             // 
             this.quantityBox.Location = new System.Drawing.Point(217, 608);
             this.quantityBox.Name = "quantityBox";
-            this.quantityBox.Size = new System.Drawing.Size(220, 27);
+            this.quantityBox.Size = new System.Drawing.Size(220, 32);
             this.quantityBox.TabIndex = 11;
             // 
             // label5
@@ -169,7 +170,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 611);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(160, 18);
+            this.label5.Size = new System.Drawing.Size(199, 25);
             this.label5.TabIndex = 12;
             this.label5.Text = "Desired Quantity: ";
             // 
@@ -201,13 +202,13 @@
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label6.Location = new System.Drawing.Point(733, 26);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(216, 26);
+            this.label6.Size = new System.Drawing.Size(263, 32);
             this.label6.TabIndex = 1;
             this.label6.Text = "ASEAN Skills 2020";
             // 
             // Book
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 649);
             this.Controls.Add(this.panel1);

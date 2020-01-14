@@ -53,6 +53,7 @@ namespace Session2
             {
                 var getBookings = (from x in context.Bookings
                                    where x.userIdFK == _userID
+                                   where x.status == "Approved"
                                    select x);
                 foreach (var item in getBookings)
                 {
@@ -84,16 +85,17 @@ namespace Session2
                 {
                     var getBookingId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[5].Value);
                     var getQuantity = Convert.ToInt32(dataGridView1.CurrentRow.Cells[3].Value);
+                    var getPackageName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                     using (var context = new Session2Entities1())
                     {
                         var getBookingToDelete = (from x in context.Bookings
                                                   where x.bookingId == getBookingId
                                                   select x).First();
-                        var updatePackage = (from x in context.Bookings
-                                             where x.bookingId == getBookingId
-                                             join y in context.Packages on x.packageIdFK equals y.packageId
-                                             select y.packageQuantity).First();
-                        updatePackage += getQuantity;
+                        var updatePackage = (from x in context.Packages
+                                             where x.packageName == getPackageName
+                                             select x).First();
+                        updatePackage.packageQuantity += getQuantity;
+                        context.SaveChanges();
                         context.Bookings.Remove(getBookingToDelete);
                         dataGridView1.Rows.RemoveAt(dataGridView1.CurrentRow.Index);
                         context.SaveChanges();
@@ -137,8 +139,8 @@ namespace Session2
                                                  where x.bookingId == getBookingId
                                                  select x).First();
                             UpdateBooking.quantityBooked = Int32.Parse(quantityBox.Text);
+                            context.SaveChanges();
                         }
-                        context.SaveChanges();
                         dataGridView1.Rows.Clear();
                         GridRefresh();
                     }

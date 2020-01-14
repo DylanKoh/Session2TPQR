@@ -53,7 +53,7 @@
             this.label1.Font = new System.Drawing.Font("Verdana", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(351, 107);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 26);
+            this.label1.Size = new System.Drawing.Size(281, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Sponsor Main Menu";
             // 
@@ -93,15 +93,15 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Verdana", 16F);
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(751, 32);
+            this.label6.Location = new System.Drawing.Point(704, 24);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(216, 26);
+            this.label6.Size = new System.Drawing.Size(263, 32);
             this.label6.TabIndex = 1;
             this.label6.Text = "ASEAN Skills 2020";
             // 
             // SponsorMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(979, 586);
             this.Controls.Add(this.panel1);
