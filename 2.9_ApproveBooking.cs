@@ -17,17 +17,28 @@ namespace Session2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Upon load, calls for DGV to be filled and or refreshed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApproveBooking_Load(object sender, EventArgs e)
         {
             GridRefresh();
         }
 
+        //Redirects user back to Manager Main Menu - 2.4
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             (new ManagerMain()).ShowDialog();
             this.Close();
         }
+
+        /// <summary>
+        /// This method is resposible for filling up the DGV with the relevant details and also
+        /// the ordering of Pending, Approve then Rejected.
+        /// </summary>
         private void GridRefresh()
         {
             dataGridView1.ReadOnly = true;
@@ -58,6 +69,13 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// When Accept button is clicked, VadChecks run through all selected rows check if approving
+        /// the packages will make value in DB negative. Else, it will approve bookings and increases quantity booked for the packages in DB.
+        /// Once accepted, refreshes DGV
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAccept_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
@@ -100,6 +118,12 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// When the reject button is clicked, runs through VadCheck for all selected rows. Also prompts user before
+        /// it actually rejects. Then refreshes DGV once anything was rejected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReject_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
