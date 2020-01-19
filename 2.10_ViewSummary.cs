@@ -17,6 +17,11 @@ namespace Session2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Redirects user back to Manager Main Menu - 2.4
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -26,6 +31,7 @@ namespace Session2
 
         private void ViewSummary_Load(object sender, EventArgs e)
         {
+            #region Loading Tier Combo box for filtering
             cbTier.Items.Add("No Filter");
             using (var context = new Session2Entities1())
             {
@@ -38,9 +44,15 @@ namespace Session2
                 }
                 cbTier.Items.AddRange(tiers.ToArray());
             }
+            #endregion
+
+            //Loads initial Pie Chart with no filtering
             loadPie();
         }
 
+        /// <summary>
+        /// This method is responsible for loading details and data to Pie Chart, based on selected Tiers
+        /// </summary>
         private void loadPie()
         {
             chart1.Series[0].Points.Clear();
@@ -111,6 +123,11 @@ namespace Session2
 
         }
 
+        /// <summary>
+        /// When a new Tier is selected, it reloads the Pie Chart again
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbTier_SelectedIndexChanged(object sender, EventArgs e)
         {
             loadPie();
