@@ -17,6 +17,7 @@ namespace Session2
             InitializeComponent();
         }
 
+        //Redirects to Add Sponsorship Packages page - 2.8
         private void addPackageBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -24,6 +25,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects to View Sponsorship Packages page - 2.7
         private void viewPackageBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -31,6 +33,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects back to Login page - 2.1
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -38,6 +41,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects tp Approve Sponsorship Bookings page - 2.9
         private void approveBookingsBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -45,6 +49,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects to View Sponshorship Packages Summary - 2.10
         private void viewBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
