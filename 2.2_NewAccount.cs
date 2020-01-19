@@ -26,21 +26,28 @@ namespace Session2
 
         private void createBtn_Click(object sender, EventArgs e)
         {
+            //Checks if company name field is empty
             if (companyNameBox.Text.Trim() == "")
             {
                 MessageBox.Show("Company Name is required!", "Missing Company Name",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            //Checks if User ID is empty
             else if (userIDBox.TextLength < 8)
             {
                 MessageBox.Show("User ID must have a minimum of 8 characters!", "User ID too short",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            //Checks if both password field or re-enter password field is empty
             else if (passwordBox.Text.Trim() == "" || rePasswordBox.Text.Trim() == "")
             {
                 MessageBox.Show("Please check your password fields!", "Empty password field(s)",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            //Checks if both password field and re-enter field is the same
             else if (rePasswordBox.Text != passwordBox.Text)
             {
                 MessageBox.Show("Password does not match!", "Mismatched passwords",
@@ -56,16 +63,22 @@ namespace Session2
                     var checkUserID = (from x in context.Users
                                        where x.userId == userIDBox.Text
                                        select x).FirstOrDefault();
+
+                    //Check if company already has an account
                     if (checkForPossibleAccount != null)
                     {
                         MessageBox.Show("Your current company already has a sponsor account!", "Unable to create an account",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
+                    //Check if User ID has been used
                     else if (checkUserID != null)
                     {
                         MessageBox.Show("User ID has been used!", "Unable to create an account",
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
+                    //Else if all checks passed, add details of new account to DB
                     else
                     {
                         context.Users.Add(new User()
