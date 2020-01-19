@@ -17,6 +17,7 @@ namespace Session2
 
         private void Book_Load(object sender, EventArgs e)
         {
+            #region Populating Tier Combo box for filtering
             HashSet<string> Tiers = new HashSet<string>();
             tierBox.Items.Add("No Sorting");
             using (var context = new Session2Entities1())
@@ -29,9 +30,13 @@ namespace Session2
                 }
                 tierBox.Items.AddRange(Tiers.ToArray());
             }
+            #endregion
+
+            //Initial DGV loading with no filter yet selected
             GridRefresh();
         }
 
+        //Redirects User back to Sponsorship Main Menu page - 2.3
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -40,6 +45,7 @@ namespace Session2
         }
         private void GridRefresh()
         {
+            #region Main DGV settings and column additions
             dataGridView1.ReadOnly = true;
             dataGridView1.ColumnCount = 7;
             dataGridView1.Columns[0].Name = "Tier";
@@ -49,6 +55,8 @@ namespace Session2
             dataGridView1.Columns[4].Name = "Online";
             dataGridView1.Columns[5].Name = "Flyers";
             dataGridView1.Columns[6].Name = "Banner";
+            #endregion
+
             using (var context = new Session2Entities1())
             {
                 if (tierBox.SelectedItem != null && tierBox.SelectedItem.ToString() != "No Sorting")
@@ -58,6 +66,8 @@ namespace Session2
                                        where x.packageQuantity > 0
                                        where x.packageTier == getSelectedTier
                                        select new { x });
+
+                    //For every distinct package name...
                     foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
                     {
                         var getPackageInfo = (from x in context.Packages
@@ -69,10 +79,14 @@ namespace Session2
                                 getPackageInfo.packageQuantity.ToString()
                             };
 
+                        //Getting benefits of current queried package and putting all benefits to list
                         var getBenefits = (from x in context.Benefits
                                            where x.packageIdFK == getPackageInfo.packageId
                                            select x.benefitName).ToList();
 
+                        ///Since Online Benefits comes first followed by Flyer then Banner.
+                        ///getBenefits.FirstOrDefault to check if Online as a benefit exist, then check if the list contains
+                        ///Flyer first, then Banner
                         if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                         else rows.Add("");
                         if (getBenefits.Contains("Flyer")) rows.Add("Yes");
@@ -89,6 +103,8 @@ namespace Session2
                     var getPackages = (from x in context.Packages
                                        where x.packageQuantity > 0
                                        select new { x });
+
+                    //For every distinct package name...
                     foreach (var item in getPackages.Select(x => x.x.packageName).Distinct())
                     {
                         var getPackageInfo = (from x in context.Packages
@@ -100,10 +116,14 @@ namespace Session2
                                 getPackageInfo.packageQuantity.ToString()
                             };
 
+                        //Getting benefits of current queried package and putting all benefits to list
                         var getBenefits = (from x in context.Benefits
                                            where x.packageIdFK == getPackageInfo.packageId
                                            select x.benefitName).ToList();
 
+                        ///Since Online Benefits comes first followed by Flyer then Banner.
+                        ///getBenefits.FirstOrDefault to check if Online as a benefit exist, then check if the list contains
+                        ///Flyer first, then Banner
                         if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                         else rows.Add("");
                         if (getBenefits.Contains("Flyer")) rows.Add("Yes");
@@ -121,6 +141,11 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// Triggered when Online Checkbox is checked, then remove rows of irrelevant information that doesn't have Online as a benefit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onlineBox_CheckedChanged(object sender, EventArgs e)
         {
             if (onlineBox.Checked)
@@ -155,6 +180,11 @@ namespace Session2
 
         }
 
+        /// <summary>
+        /// Triggered when Flyer Checkbox is checked, then remove rows of irrelevant information that doesn't have Online as a benefit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void flyersBox_CheckedChanged(object sender, EventArgs e)
         {
             if (flyersBox.Checked)
@@ -188,6 +218,11 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// Triggered when Banner Checkbox is checked, then remove rows of irrelevant information that doesn't have Online as a benefit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bannerBox_CheckedChanged(object sender, EventArgs e)
         {
             if (bannerBox.Checked)
@@ -222,8 +257,14 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// Triggered when the Book button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bookBtn_Click(object sender, EventArgs e)
         {
+            //Check if any row is selected at all
             if (dataGridView1.CurrentRow == null)
             {
                 MessageBox.Show("Please select a package to book!",
@@ -231,6 +272,7 @@ namespace Session2
             }
             else
             {
+                //Check if user keyed in any invalid amount of packages (0 or less)
                 if (Int32.Parse(quantityBox.Text) <= 0)
                 {
                     MessageBox.Show("Please key in a valid amount", "Invalid amount", MessageBoxButtons.OK,
@@ -238,6 +280,7 @@ namespace Session2
                 }
                 var getValueAfterBooking = Convert.ToInt32(dataGridView1.CurrentRow.Cells[3].Value);
 
+                //Check with DB if amount to book is available for the User
                 if (getValueAfterBooking - Int32.Parse(quantityBox.Text) < 0)
                 {
                     MessageBox.Show("Unable to book more than current available quantity!", "Invalid amount", MessageBoxButtons.OK,
@@ -245,6 +288,7 @@ namespace Session2
                 }
                 else
                 {
+                    //Else, add details of booking to DB
                     using (var context = new Session2Entities1())
                     {
                         var packageName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -272,6 +316,11 @@ namespace Session2
 
         }
 
+        /// <summary>
+        /// Whenever User keys in an amount, filter through DGV to get relevant prices that suits budget
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void budgetBox_TextChanged(object sender, EventArgs e)
         {
             if (budgetBox.Text.Trim() != "")
@@ -280,11 +329,11 @@ namespace Session2
                 using (var context = new Session2Entities1())
                 {
                     var getValue = Int32.Parse(budgetBox.Text);
-                    var getRelevent = (from x in context.Packages
+                    var getRelevant = (from x in context.Packages
                                        where x.packageValue <= getValue
                                        where x.packageQuantity >= 0
                                        select x.packageName).Distinct();
-                    foreach (var item in getRelevent)
+                    foreach (var item in getRelevant)
                     {
                         var checkBenefits = (from x in context.Benefits
                                              where x.Package.packageName == item
@@ -370,6 +419,11 @@ namespace Session2
 
         }
 
+        /// <summary>
+        /// Whenever a tier is selected, refresh the entire DGV by deleting and repopulating
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tierBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (onlineBox.Checked)
