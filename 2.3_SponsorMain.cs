@@ -19,6 +19,7 @@ namespace Session2
             _userID = userID;
         }
 
+        //Redirects user to Book Sponsorship Package page - 2.5
         private void bookBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -26,6 +27,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects user to Update Sponsorship Packages page (those that have been approved) - 2.6
         private void updateBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -33,6 +35,7 @@ namespace Session2
             this.Close();
         }
 
+        //Redirects user back to Login page - 2.1
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
