@@ -27,11 +27,15 @@ namespace Session2
         {
             using (var context = new Session2Entities1())
             {
+
+                //Checks if User ID field is empty
                 if (userIDBox.Text.Trim() == "")
                 {
                     MessageBox.Show("Please enter your User ID!", "Empty User ID",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                //Checks if password field is empty
                 else if (passwordBox.Text.Trim() == "")
                 {
                     MessageBox.Show("Please enter your Password!", "Empty password",
@@ -43,11 +47,14 @@ namespace Session2
                                    where x.userId.Equals(userIDBox.Text)
                                    select x).FirstOrDefault();
 
+                    //Check if User even exist in DB
                     if (getUser == null)
                     {
                         MessageBox.Show("User does not exist!", "Invalid Login details",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+                    //Check if entered password matches the intended account's password
                     else if (getUser.passwd != passwordBox.Text)
                     {
                         MessageBox.Show("Password is incorrect!", "Invalid Login details",
@@ -64,6 +71,7 @@ namespace Session2
                                              where x.userTypeName == "Sponsor"
                                              select x.userTypeId).First();
 
+                        //Check if account type is "Manager" and redirect to the Manager's Main Menu - 2.4
                         if (getUser.userTypeIdFK == findManagerID)
                         {
                             MessageBox.Show($"Welcome {getUser.name}!", "Successful login",
@@ -72,6 +80,8 @@ namespace Session2
                             (new ManagerMain()).ShowDialog();
                             this.Close();
                         }
+
+                        //Else redirect to Sponsor's Main Menu - 2.3
                         else
                         {
                             MessageBox.Show($"Welcome {getUser.name}!", "Successful login",
@@ -85,6 +95,7 @@ namespace Session2
             }
         }
 
+        //Redirects user to Sponsor Account Creation page - 2.2
         private void createBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
