@@ -17,6 +17,7 @@ namespace Session2
             InitializeComponent();
         }
 
+        //Redirects User to Manager Main Menu - 2.4
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -24,6 +25,11 @@ namespace Session2
             this.Close();
         }
 
+        /// <summary>
+        /// Upon loading this form, load the default DGV layout and order of data of Sponsorship package
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ViewPackage_Load(object sender, EventArgs e)
         {
             dataGridView1.ColumnCount = 7;
@@ -70,6 +76,7 @@ namespace Session2
             }
         }
 
+        //When the Default radio button is checked, refresh the DGV again
         private void defaultBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (defaultBtn.Checked)
@@ -80,6 +87,7 @@ namespace Session2
 
         }
 
+        //When the Name radio button is checked, refresh the DGV again by ascending name order
         private void nameButton_CheckedChanged(object sender, EventArgs e)
         {
             if (nameButton.Checked)
@@ -119,6 +127,7 @@ namespace Session2
             
         }
 
+        //When the Value radio button is checked, refresh the DGV again by ascending value of package order
         private void valueBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (valueBtn.Checked)
@@ -156,6 +165,7 @@ namespace Session2
             }
         }
 
+        //When the Quantity radio button is checked, refresh the DGV again by descending quantity of packages order
         private void quantityBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (quantityBtn.Checked)
@@ -194,6 +204,7 @@ namespace Session2
             
         }
 
+        //When the Tier radio button is checked, refresh the DGV again accord to Tier Gold, Silver then Bronze order
         private void tierBtn_CheckedChanged_1(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
