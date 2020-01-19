@@ -19,6 +19,7 @@ namespace Session2
             InitializeComponent();
         }
 
+        //Redirects user back to Manager Main Menu - 2.4
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -30,6 +31,7 @@ namespace Session2
         {
             using (var context = new Session2Entities1())
             {
+                #region Populating the Tier Combo box
                 var getTier = (from x in context.Packages
                                select x.packageTier);
                 var tiers = new HashSet<string>();
@@ -38,7 +40,9 @@ namespace Session2
                     tiers.Add(item);
                 }
                 cbTier.Items.AddRange(tiers.ToArray());
+                #endregion
 
+                #region Populating the Benefits Checklist Box
                 var getBenefits = (from x in context.Benefits
                                    select x.benefitName);
                 var benefits = new HashSet<string>();
@@ -47,9 +51,15 @@ namespace Session2
                     benefits.Add(item);
                 }
                 clbBenefits.Items.AddRange(benefits.ToArray());
+                #endregion
             }
         }
 
+        /// <summary>
+        /// When clicked, it will clear all previous entrys on the form and reloads in fresh empty data from DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClear_Click(object sender, EventArgs e)
         {
             cbTier.Items.Clear();
@@ -61,6 +71,11 @@ namespace Session2
             txtFilePath.Text = "";
         }
 
+        /// <summary>
+        /// When clicked, opens File Dialog for user to choose a csv file to import
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFilePath_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -76,6 +91,12 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// Whenever an item is checked or unchecked, it is added or removed from the global list created respectively.
+        /// The lis is referenced for saving to DB later on.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clbBenefits_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             var item = clbBenefits.SelectedItem.ToString();
@@ -89,6 +110,13 @@ namespace Session2
             }
         }
 
+        /// <summary>
+        /// When clicked, runs the appropiate VadChecks like empty fields,
+        /// invalid data entry, checking with DB to make sure no duplicates. When all VadChecks are passed,
+        /// then add the new package(s) to DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -189,6 +217,13 @@ namespace Session2
             
         }
 
+        /// <summary>
+        /// When clicked, reads CSV file and relatively assign them to DB in the correct
+        /// fields. Also checks if Package exist. If it does, it will skip the package and go on to the next
+        /// record in the CSV file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpload_Click(object sender, EventArgs e)
         {
             if (txtFilePath.Text.Trim() != "")
