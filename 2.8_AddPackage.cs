@@ -234,8 +234,9 @@ namespace Session2
                     var values = lines[i].Split(',');
                     using (var context = new Session2Entities1())
                     {
+                        var name = values[0];
                         var checkIfExist = (from x in context.Packages
-                                            where x.packageName == values[0]
+                                            where x.packageName == name
                                             select x).FirstOrDefault();
                         if (checkIfExist != null)
                         {

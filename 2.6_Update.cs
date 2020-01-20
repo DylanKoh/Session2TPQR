@@ -60,7 +60,7 @@ namespace Session2
             {
                 var getBookings = (from x in context.Bookings
                                    where x.userIdFK == _userID
-                                   where x.status == "Approved"
+                                   where x.status == "Accepted"
                                    select x);
                 foreach (var item in getBookings)
                 {

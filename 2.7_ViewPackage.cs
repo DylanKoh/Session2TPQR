@@ -60,8 +60,8 @@ namespace Session2
                     var getBenefits = (from x in context.Benefits
                                        where x.packageIdFK == getPackageInfo.packageId
                                        select x.benefitName).ToList();
-
-                    if (getBenefits.First() == "Online") rows.Add("Yes");
+                    
+                    if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                     else rows.Add("");
                     if (getBenefits.Contains("Flyer")) rows.Add("Yes");
                     else rows.Add("");
@@ -112,7 +112,7 @@ namespace Session2
                                            where x.packageIdFK == item.packageId
                                            select x.benefitName).ToList();
 
-                        if (getBenefits.First() == "Online") rows.Add("Yes");
+                        if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                         else rows.Add("");
                         if (getBenefits.Contains("Flyer")) rows.Add("Yes");
                         else rows.Add("");
@@ -152,7 +152,7 @@ namespace Session2
                                            where x.packageIdFK == item.packageId
                                            select x.benefitName).ToList();
 
-                        if (getBenefits.First() == "Online") rows.Add("Yes");
+                        if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                         else rows.Add("");
                         if (getBenefits.Contains("Flyer")) rows.Add("Yes");
                         else rows.Add("");
@@ -190,7 +190,7 @@ namespace Session2
                                            where x.packageIdFK == item.packageId
                                            select x.benefitName).ToList();
 
-                        if (getBenefits.First() == "Online") rows.Add("Yes");
+                        if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                         else rows.Add("");
                         if (getBenefits.Contains("Flyer")) rows.Add("Yes");
                         else rows.Add("");
@@ -231,7 +231,7 @@ namespace Session2
                                        where x.packageIdFK == item.x.packageId
                                        select x.benefitName).ToList();
 
-                    if (getBenefits.First() == "Online") rows.Add("Yes");
+                    if (getBenefits.FirstOrDefault() == "Online") rows.Add("Yes");
                     else rows.Add("");
                     if (getBenefits.Contains("Flyer")) rows.Add("Yes");
                     else rows.Add("");
